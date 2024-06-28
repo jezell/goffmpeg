@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"os/exec"
 	"regexp"
 	"strconv"
@@ -331,6 +332,8 @@ func (t Transcoder) Output() <-chan Progress {
 		for scanner.Scan() {
 			Progress := new(Progress)
 			line := scanner.Text()
+			log.Println(line)
+
 			if strings.Contains(line, "frame=") && strings.Contains(line, "time=") && strings.Contains(line, "bitrate=") {
 				var re = regexp.MustCompile(`=\s+`)
 				st := re.ReplaceAllString(line, `=`)
